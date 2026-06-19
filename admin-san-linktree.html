@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin-san Academy – Links</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      background: #0a0f0a;
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 2.5rem 1rem 4rem;
+      min-height: 100vh;
+    }
+
+    /* Scanline overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.04) 2px,
+        rgba(0, 0, 0, 0.04) 4px
+      );
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .card {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 440px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ── Avatar ── */
+    .avatar-wrap {
+      position: relative;
+      margin-bottom: 1.25rem;
+    }
+
+    .avatar-ring {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      padding: 2.5px;
+      background: conic-gradient(#22c55e, #4ade80, #16a34a, #22c55e);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: spin 8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .avatar-inner {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      background: #0d1410;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #22c55e;
+      letter-spacing: -1px;
+      animation: spin-reverse 8s linear infinite;
+    }
+
+    @keyframes spin-reverse {
+      to { transform: rotate(-360deg); }
+    }
+
+    .status-dot {
+      position: absolute;
+      bottom: 4px;
+      right: 4px;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: #22c55e;
+      border: 2.5px solid #0a0f0a;
+      box-shadow: 0 0 6px #22c55e88;
+    }
+
+    /* ── Identity ── */
+    .username {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #f0fdf4;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.3rem;
+    }
+
+    .handle {
+      font-size: 0.78rem;
+      color: #4ade80;
+      font-family: 'JetBrains Mono', monospace;
+      margin-bottom: 0.75rem;
+      opacity: 0.85;
+    }
+
+    .tag-row {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    .tag {
+      font-size: 0.67rem;
+      font-family: 'JetBrains Mono', monospace;
+      color: #22c55e;
+      background: #0f1e12;
+      border: 1px solid #1f3a27;
+      border-radius: 4px;
+      padding: 3px 9px;
+    }
+
+    .bio {
+      font-size: 0.84rem;
+      color: #6b7280;
+      text-align: center;
+      line-height: 1.65;
+      max-width: 310px;
+      margin-bottom: 1.6rem;
+    }
+
+    /* ── Terminal bar ── */
+    .terminal-bar {
+      width: 100%;
+      background: #111d15;
+      border: 1px solid #1f3a27;
+      border-radius: 8px;
+      padding: 0.6rem 1rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .dots {
+      display: flex;
+      gap: 5px;
+      flex-shrink: 0;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .dot-r { background: #ff5f57; }
+    .dot-y { background: #febc2e; }
+    .dot-g { background: #28c840; }
+
+    .terminal-text {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: #22c55e;
+      margin-left: 0.3rem;
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 7px;
+      height: 12px;
+      background: #22c55e;
+      margin-left: 2px;
+      animation: blink 1.1s step-end infinite;
+      vertical-align: -2px;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    /* ── Stats ── */
+    .stat-row {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 1.6rem;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #22c55e;
+    }
+
+    .stat-lbl {
+      font-size: 0.66rem;
+      color: #4b5563;
+      margin-top: 2px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* ── Links ── */
+    .links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      width: 100%;
+    }
+
+    .section-label {
+      font-size: 0.67rem;
+      font-family: 'JetBrains Mono', monospace;
+      color: #2d4a35;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      width: 100%;
+      margin-bottom: 0.1rem;
+      padding-left: 0.1rem;
+    }
+
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: #1a2e1f;
+      margin: 0.3rem 0;
+    }
+
+    .link-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      padding: 0.85rem 1.1rem;
+      border-radius: 10px;
+      border: 1px solid #1f3a27;
+      background: #111d15;
+      text-decoration: none;
+      color: #e2e8f0;
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: background 0.18s, border-color 0.18s, transform 0.12s;
+      cursor: pointer;
+    }
+
+    .link-btn:hover {
+      background: #172416;
+      border-color: #22c55e;
+      transform: translateX(4px);
+    }
+
+    .link-btn:active {
+      transform: translateX(2px) scale(0.99);
+    }
+
+    .link-btn.featured {
+      border-color: #22c55e;
+      background: #0f1e12;
+    }
+
+    .link-btn.featured .link-icon {
+      background: #172e1a;
+      border-color: #22c55e;
+    }
+
+    .link-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 7px;
+      background: #162016;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border: 1px solid #2d4a35;
+      transition: border-color 0.18s;
+    }
+
+    .link-icon i {
+      color: #4ade80;
+      font-size: 18px;
+    }
+
+    .link-btn:hover .link-icon {
+      border-color: #22c55e;
+    }
+
+    .link-label {
+      flex: 1;
+    }
+
+    .link-title {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: #f0fdf4;
+      line-height: 1.3;
+    }
+
+    .link-sub {
+      font-size: 0.7rem;
+      color: #4b5563;
+      margin-top: 2px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .link-arrow {
+      color: #2d4a35;
+      font-size: 15px;
+      transition: color 0.18s;
+      flex-shrink: 0;
+    }
+
+    .link-btn:hover .link-arrow {
+      color: #22c55e;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      margin-top: 2.2rem;
+      font-size: 0.68rem;
+      font-family: 'JetBrains Mono', monospace;
+      color: #1f3a27;
+      text-align: center;
+      line-height: 1.8;
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 480px) {
+      body {
+        padding: 1.75rem 0.9rem 3rem;
+      }
+
+      .card {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<main class="card" aria-label="Admin-san Academy – Alle Links">
+
+  <div class="avatar-wrap">
+    <div class="avatar-ring">
+      <div class="avatar-inner">A/S</div>
+    </div>
+    <div class="status-dot" title="Online"></div>
+  </div>
+
+  <div class="username">Admin-san</div>
+  <div class="handle">@admin-san-academy</div>
+
+  <div class="tag-row">
+    <span class="tag">IT</span>
+    <span class="tag">Anime</span>
+    <span class="tag">Linux</span>
+    <span class="tag">Networking</span>
+  </div>
+
+  <p class="bio">
+    Sysadmin by day. Anime protagonist by night.<br>
+    IT-Wissen trifft Staffelstruktur.
+  </p>
+
+  <div class="terminal-bar" aria-hidden="true">
+    <div class="dots">
+      <span class="dot dot-r"></span>
+      <span class="dot dot-y"></span>
+      <span class="dot dot-g"></span>
+    </div>
+    <span class="terminal-text">$ ./admin-san --links --all<span class="cursor"></span></span>
+  </div>
+
+  <div class="stat-row" aria-label="Stats">
+    <div class="stat">
+      <div class="stat-num">S4</div>
+      <div class="stat-lbl">Staffel</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">4</div>
+      <div class="stat-lbl">Chars</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">10</div>
+      <div class="stat-lbl">Episoden</div>
+    </div>
+  </div>
+
+  <nav class="links" aria-label="Links">
+
+    <span class="section-label">// social</span>
+
+    <a class="link-btn featured" href="https://instagram.com/admin-san-academy" target="_blank" rel="noopener">
+      <div class="link-icon"><i class="ti ti-brand-instagram" aria-hidden="true"></i></div>
+      <div class="link-label">
+        <div class="link-title">Instagram</div>
+        <div class="link-sub">@admin-san-academy</div>
+      </div>
+      <i class="ti ti-arrow-right link-arrow" aria-hidden="true"></i>
+    </a>
+
+    <a class="link-btn" href="https://youtube.com/@admin-san-academy" target="_blank" rel="noopener">
+      <div class="link-icon"><i class="ti ti-brand-youtube" aria-hidden="true"></i></div>
+      <div class="link-label">
+        <div class="link-title">YouTube</div>
+        <div class="link-sub">Reels &amp; Behind the Scenes</div>
+      </div>
+      <i class="ti ti-arrow-right link-arrow" aria-hidden="true"></i>
+    </a>
+
+    <div class="divider"></div>
+    <span class="section-label">// content</span>
+
+    <a class="link-btn" href="#" target="_blank" rel="noopener">
+      <div class="link-icon"><i class="ti ti-player-play" aria-hidden="true"></i></div>
+      <div class="link-label">
+        <div class="link-title">Staffel 4 – Back to Basics</div>
+        <div class="link-sub">S4E01 Reboot · jetzt live</div>
+      </div>
+      <i class="ti ti-arrow-right link-arrow" aria-hidden="true"></i>
+    </a>
+
+    <a class="link-btn" href="#" target="_blank" rel="noopener">
+      <div class="link-icon"><i class="ti ti-news" aria-hidden="true"></i></div>
+      <div class="link-label">
+        <div class="link-title">Admin-san Zeitung</div>
+        <div class="link-sub">In-Universe · Ausgabe #02</div>
+      </div>
+      <i class="ti ti-arrow-right link-arrow" aria-hidden="true"></i>
+    </a>
+
+    <div class="divider"></div>
+    <span class="section-label">// kontakt</span>
+
+    <a class="link-btn" href="mailto:collab@admin-san.academy">
+      <div class="link-icon"><i class="ti ti-mail" aria-hidden="true"></i></div>
+      <div class="link-label">
+        <div class="link-title">Zusammenarbeit</div>
+        <div class="link-sub">collab@admin-san.academy</div>
+      </div>
+      <i class="ti ti-arrow-right link-arrow" aria-hidden="true"></i>
+    </a>
+
+  </nav>
+
+  <footer class="footer">
+    admin-san.academy · @admin-san-academy · 2026<br>
+    root@telfs.at
+  </footer>
+
+</main>
+
+</body>
+</html>
