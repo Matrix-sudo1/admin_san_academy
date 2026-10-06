@@ -1,24 +1,28 @@
 # Admin-san Academy // Patchwork IT
 
-Die offizielle kleine Webpräsenz für das **Admin-san / Patchwork IT**-Universum.
+Die offizielle Webpräsenz für das **Admin-san / Patchwork IT**-Universum.
 
 ## Website
 
-Die Startseite liegt in `index.html` und ist für GitHub Pages vorbereitet.
+Die Startseite liegt in `index.html` und wird über GitHub Pages veröffentlicht.
 
-## Inhalt
+## Bereiche
 
-- Admin-san // Patchwork IT
-- Season 04 // Back to Basics
-- Cinematic Episodes
-- Tuesday Moment
-- Crew / Charaktere
-- Social Links
+- **Hero / Admin-san** – Season 04 // Back to Basics
+- **Die Welt** – Cinematic Episodes, Tuesday Moment und Outtakes
+- **Episoden** – zentrale Übersicht für veröffentlichte Geschichten
+- **Aktuelle Season** – Back to Basics
+- **Canonical Crew** – Admin-san, Lena, IT-Queen, Markus und Mochi
+- **Paris Arc** – dreiteiliger Mini-Arc
+- **Outtakes** – Behind-the-Scenes und Produktionshumor
+- **Social** – Instagram, YouTube, Ko-fi und GitHub
 
 ## Tech
 
-Statische HTML/CSS-Seite ohne Build-System oder Server-Backend.
+Statische HTML/CSS-Seite ohne Build-System und ohne Server-Backend.
 
 ## GitHub Pages
 
-Die Seite kann über **Settings → Pages → Deploy from a branch → `main` / `/ (root)`** veröffentlicht werden.
+Die Seite wird aus dem Branch **main** und dem Verzeichnis **/(root)** veröffentlicht.
+
+GitHub: https://github.com/Matrix-sudo1/admin_san_academy
